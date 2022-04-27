@@ -1,0 +1,12 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    height: 100vh;
+    flex-direction: column;
+    gap: 50px;
+}
+.usedNumbers {
+    width: 300px;
+    line-height: 25px;
+}
