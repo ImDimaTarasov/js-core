@@ -5,7 +5,8 @@ const app = () => {
 	const maxNumberInput = document.getElementById("maxNumber");
 
 	let maxNum = 0;
-    const generator = randomNumberGenerator();
+	let generator = randomNumberGenerator();
+
 	const usedNumbers = [];
 	let content = {
 		message: "",
@@ -33,7 +34,6 @@ const app = () => {
 				};
 			case "noMoreNumber":
 				return {
-					...content,
 					buttonDisplay: "none",
 					message: "There aren't any random numbers anymore",
 				};
@@ -41,16 +41,14 @@ const app = () => {
 	};
 	const setContent = (data) => {
 		content = { ...data };
+		console.log(content);
 		displayContent();
 	};
-
-	// const setGenerator = (num) => {
-	// 	return randomNumberGenerator(num);
-	// };
 
 	const getMaxNumber = (event) => {
 		maxNum = +event.target.value;
 
+		generator = randomNumberGenerator(maxNum);
 		setContent(reducer("gotNumber"));
 		if (event.target.value === "") {
 			setContent("startMessage");
@@ -63,12 +61,12 @@ const app = () => {
 	};
 
 	const displayRandomNumAndArrayOfUsedNumbers = () => {
-		const randomNum = generator(maxNum);
+		const randomNum = generator();
 
 		if (randomNum === undefined) {
 			setContent(reducer("noMoreNumber"));
+			return;
 		}
-
 		setContent(reducer("setMessage", randomNum));
 		usedNumbers.push(randomNum);
 		usedNum.textContent = usedNumbers.join(", ");
